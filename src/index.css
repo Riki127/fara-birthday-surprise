@@ -149,7 +149,7 @@ button:focus-visible {
   background-color: #4a9c24;
   transform: translateY(-5px);
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
-}}
+}
 .scroll-to-top:active {
   transform: translateY(-2px);
 }
@@ -181,6 +181,42 @@ button:focus-visible {
     transform: translateX(var(--drift, 0px)) translateY(-110vh) scale(1.2);
     opacity: 0;
   }
+}
+
+/* bounce in animation for first page content */
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* apply bounce animation to first page elements with staggered delays */
+.page:first-of-type .rotated-image.animate-bounce {
+  animation: bounceIn 0.8s ease-out 0.2s both;
+}
+
+.page:first-of-type h1.animate-bounce {
+  animation: bounceIn 0.8s ease-out 0.4s both;
+}
+
+.page:first-of-type p.animate-bounce {
+  animation: bounceIn 0.8s ease-out 0.6s both;
+}
+
+.page:first-of-type .start-btn.animate-bounce {
+  animation: bounceIn 0.8s ease-out 0.8s both;
 }
 
 

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 
 function Surprise() {
@@ -13,6 +13,40 @@ function Surprise() {
 function App() {
   // keep state if you need it later, but not required for scrolling
   const [started, setStarted] = useState(false)
+
+  // use effect to set up intersection observer for animation replay
+  useEffect(() => {
+    const firstPage = document.querySelector('.page:first-of-type')
+    if (!firstPage) return
+
+    const addAnimations = () => {
+      const elements = firstPage.querySelectorAll('.rotated-image, h1, p, .start-btn')
+      elements.forEach((el) => {
+        el.classList.remove('animate-bounce')
+        // trigger reflow to force animation restart
+        void (el as HTMLElement).offsetWidth
+        el.classList.add('animate-bounce')
+      })
+    }
+
+    // add animations on initial mount
+    addAnimations()
+
+    // also set up intersection observer to replay when page comes back into view
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            addAnimations()
+          }
+        })
+      },
+      { threshold: 0.3 }
+    )
+
+    observer.observe(firstPage)
+    return () => observer.disconnect()
+  }, [])
 
   const begin = () => {
     setStarted(true)

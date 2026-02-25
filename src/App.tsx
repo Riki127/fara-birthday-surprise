@@ -11,7 +11,16 @@ function Surprise() {
 }
 
 function App() {
+  // keep state if you need it later, but not required for scrolling
   const [started, setStarted] = useState(false)
+
+  const begin = () => {
+    setStarted(true)
+    const next = document.querySelector('.page:nth-of-type(2)')
+    if (next) {
+      (next as HTMLElement).scrollIntoView({ behavior: 'smooth' })
+    }
+  }
 
   return (
     <>
@@ -39,19 +48,22 @@ function App() {
         </div>
       </div>
 
-      {/* sliding content layer */}
-      <div className={"container" + (started ? ' slide' : '')}>
-        {!started ? (
-          <>
-            <h1>Happy birthday my love! 💚</h1>
-            <p>🎉 Welcome to your special surprise page 🎂</p>
-            <button className="start-btn" onClick={() => setStarted(true)}>
-              Start
-            </button>
-          </>
-        ) : (
+      {/* content layer uses natural page scrolling */}
+      <div className="container">
+        {/* first section: initial greeting */}
+        <section className="page">
+          <img src="/src/assets/1.jpg" alt="birthday gift" className="rotated-image" />
+          <h1>Happy birthday my love! 💚</h1>
+          <p>🎉 Welcome to your special surprise page 🎂</p>
+          <button className="start-btn" onClick={begin}>
+            Start
+          </button>
+        </section>
+
+        {/* second section: surprise content */}
+        <section className="page">
           <Surprise />
-        )}
+        </section>
       </div>
     </>
   )

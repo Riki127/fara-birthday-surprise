@@ -22,6 +22,13 @@ function App() {
     }
   }
 
+  const scrollToTop = () => {
+    // try multiple scroll targets for maximum compatibility
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+    document.documentElement.scrollTo({ top: 0, behavior: 'smooth' })
+    document.body.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
   return (
     <>
       {/* static background layer */}
@@ -65,6 +72,11 @@ function App() {
           <Surprise />
         </section>
       </div>
+
+      {/* scroll to top button */}
+      <button className="scroll-to-top" onClick={scrollToTop}>
+        <i className="fas fa-arrow-up"></i>
+      </button>
     </>
   )
 }

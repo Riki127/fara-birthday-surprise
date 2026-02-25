@@ -1,0 +1,135 @@
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #2a4020;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+
+/* hearts bubbling upward */
+.hearts {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* slide the content layer left when started */
+.container {
+  position: relative;
+  transition: transform 0.8s ease;
+  z-index: 1;
+}
+.container.slide {
+  transform: translateX(-100%);
+}
+
+/* background layer fixed and nonmoving */
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  z-index: 0;
+}
+
+/* start button style */
+.start-btn {
+  margin-top: 1.5rem;
+  padding: 0.8rem 1.6rem;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #ff69b4;
+  color: white;
+  cursor: pointer;
+}
+.start-btn:hover {
+  background-color: #ff85c1;
+}
+.heart {
+  position: absolute;
+  bottom: -2rem;
+  width: var(--size, 1.5rem);
+  height: var(--size, 1.5rem);
+  background-color: transparent;
+  color: #397c1b;
+  font-size: var(--size, 1.5rem);
+  opacity: 0.8;
+  animation: rise var(--duration, 6s) linear infinite;
+  left: var(--start, 50%);
+}
+.heart::before {
+  content: "♥";
+}
+
+@keyframes rise {
+  0% {
+    transform: translateX(0) translateY(0) scale(0.8);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateX(var(--drift, 0px)) translateY(-110vh) scale(1.2);
+    opacity: 0;
+  }
+}
+
+
+

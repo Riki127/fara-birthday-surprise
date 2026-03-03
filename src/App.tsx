@@ -1,66 +1,103 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import './App.css'
+import { loveLetters } from './loveLetters'
 
-function Surprise() {
+function Surprise({ onClose }: { onClose: () => void }) {
   return (
-    <div className="surprise">
-      <h2>🎁 Surprise! 🎁</h2>
-      <p>Hope you like this little animation page 😘</p>
+    <div className="surprise-popup">
+      <div className="surprise-content">
+        <h2>🎁 Surprise! 🎁</h2>
+        <p>Hope you like this little animation page 😘</p>
+        <button className="surprise-close-btn" onClick={onClose}>Close</button>
+      </div>
+    </div>
+  )
+}
+
+function LoveLetter({ message, onClose }: { message: string; onClose: () => void }) {
+  return (
+    <div className="love-letter-modal">
+      <div className="love-letter-content">
+        <button className="close-letter-btn" onClick={onClose}>✕</button>
+        <p>{message}</p>
+      </div>
+    </div>
+  )
+}
+
+function LetterConfirmation({ onConfirm, onClose }: { onConfirm: () => void; onClose: () => void }) {
+  return (
+    <div className="love-letter-modal">
+      <div className="love-letter-content">
+        <h2>💌 New Love Letter 💌</h2>
+        <p>You have a new love letter! Do you want to open it?</p>
+        <div className="confirmation-buttons">
+          <button onClick={onConfirm}>Yes, open it! 💕</button>
+          <button onClick={onClose}>Not now</button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function ImageModal({ imageSrc, onClose }: { imageSrc: string; onClose: () => void }) {
+  return (
+    <div className="image-modal-overlay" onClick={onClose}>
+      <div className="image-modal-content" onClick={(e) => e.stopPropagation()}>
+        <button className="image-modal-close" onClick={onClose}>✕</button>
+        <img src={imageSrc} alt="enlarged" className="enlarged-image" />
+      </div>
     </div>
   )
 }
 
 function App() {
-  // keep state if you need it later, but not required for scrolling
-  const [started, setStarted] = useState(false)
+  const [showSurprise, setShowSurprise] = useState(false)
+  const [selectedLetter, setSelectedLetter] = useState<number | null>(null)
+  const [showLetterConfirmation, setShowLetterConfirmation] = useState(false)
+  const [enlargedImage, setEnlargedImage] = useState<string | null>(null)
+  const [carouselSlide, setCarouselSlide] = useState(0)
+  // refs for each page
+  const pageRefs = [useRef(null), useRef(null), useRef(null), useRef(null), useRef(null), useRef(null)]
 
-  // use effect to set up intersection observer for animation replay
   useEffect(() => {
     const firstPage = document.querySelector('.page:first-of-type')
     if (!firstPage) return
-
     const addAnimations = () => {
       const elements = firstPage.querySelectorAll('.rotated-image, h1, p, .start-btn')
       elements.forEach((el) => {
         el.classList.remove('animate-bounce')
-        // trigger reflow to force animation restart
         void (el as HTMLElement).offsetWidth
         el.classList.add('animate-bounce')
       })
     }
-
-    // add animations on initial mount
     addAnimations()
-
-    // also set up intersection observer to replay when page comes back into view
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            addAnimations()
-          }
+          if (entry.isIntersecting) addAnimations()
         })
       },
       { threshold: 0.3 }
     )
-
     observer.observe(firstPage)
     return () => observer.disconnect()
   }, [])
 
   const begin = () => {
-    setStarted(true)
-    const next = document.querySelector('.page:nth-of-type(2)')
-    if (next) {
-      (next as HTMLElement).scrollIntoView({ behavior: 'smooth' })
-    }
+    setShowSurprise(true)
   }
 
-  const scrollToTop = () => {
-    // try multiple scroll targets for maximum compatibility
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-    document.documentElement.scrollTo({ top: 0, behavior: 'smooth' })
-    document.body.scrollTo({ top: 0, behavior: 'smooth' })
+  const closeSurprise = () => {
+    setShowSurprise(false)
+  }
+
+  // scroll to a page by index
+  const scrollToPage = (idx: number) => {
+    const ref = pageRefs[idx].current
+    if (ref) {
+      (ref as HTMLElement).scrollIntoView({ behavior: 'smooth' })
+    }
   }
 
   return (
@@ -69,10 +106,10 @@ function App() {
       <div className="background">
         <div className="hearts">
           {Array.from({ length: 20 }).map((_, i) => {
-            const drift = Math.floor(Math.random() * 300) - 150; // horizontal shift
-            const duration = (Math.random() * 4 + 4).toFixed(2); // 4–8s
-            const start = Math.floor(Math.random() * 100); // start % across width
-            const size = (Math.random() * 3.5 + 1.5).toFixed(2); // 1.5–5rem
+            const drift = Math.floor(Math.random() * 300) - 150
+            const duration = (Math.random() * 4 + 4).toFixed(2)
+            const start = Math.floor(Math.random() * 100)
+            const size = (Math.random() * 3.5 + 1.5).toFixed(2)
             return (
               <span
                 key={i}
@@ -84,33 +121,187 @@ function App() {
                   left: `${start}%`
                 } as any}
               />
-            );
+            )
           })}
         </div>
       </div>
-
-      {/* content layer uses natural page scrolling */}
       <div className="container">
-        {/* first section: initial greeting */}
-        <section className="page">
+        <section className="page" ref={pageRefs[0]}>
           <img src="/src/assets/1.jpg" alt="birthday gift" className="rotated-image" />
           <h1>Happy birthday my love! 💚</h1>
           <p>🎉 Welcome to your special surprise page 🎂</p>
-          <button className="start-btn" onClick={begin}>
-            Start
-          </button>
+          <button className="start-btn" onClick={begin}>Start the surprise!</button>
+          <div className="button-group">
+            <button onClick={() => scrollToPage(1)}>Next</button>
+          </div>
         </section>
-
-        {/* second section: surprise content */}
-        <section className="page">
-          <Surprise />
+        <section className="page" ref={pageRefs[1]}>
+          <h2>✨ Gallery Page ✨</h2>
+          <div className="carousel-container">
+            <div className="carousel-slides">
+              {/* Slide 1 */}
+              <div className={`carousel-slide ${carouselSlide === 0 ? 'active' : ''}`}>
+                <h3>Memories Together</h3>
+                <div className="polaroid-gallery">
+                  <div className="polaroid" onClick={() => setEnlargedImage('/src/assets/1.jpg')}>
+                    <img src="/src/assets/1.jpg" alt="memory 1" />
+                    <p>Memory 1</p>
+                  </div>
+                  <div className="polaroid" onClick={() => setEnlargedImage('/src/assets/1.jpg')}>
+                    <img src="/src/assets/1.jpg" alt="memory 2" />
+                    <p>Memory 2</p>
+                  </div>
+                  <div className="polaroid" onClick={() => setEnlargedImage('/src/assets/1.jpg')}>
+                    <img src="/src/assets/1.jpg" alt="memory 3" />
+                    <p>Memory 3</p>
+                  </div>
+                </div>
+              </div>
+              {/* Slide 2 */}
+              <div className={`carousel-slide ${carouselSlide === 1 ? 'active' : ''}`}>
+                <h3>Our Adventures</h3>
+                <div className="polaroid-gallery">
+                  <div className="polaroid" onClick={() => setEnlargedImage('/src/assets/1.jpg')}>
+                    <img src="/src/assets/1.jpg" alt="memory 4" />
+                    <p>Memory 4</p>
+                  </div>
+                  <div className="polaroid" onClick={() => setEnlargedImage('/src/assets/1.jpg')}>
+                    <img src="/src/assets/1.jpg" alt="memory 5" />
+                    <p>Memory 5</p>
+                  </div>
+                  <div className="polaroid" onClick={() => setEnlargedImage('/src/assets/1.jpg')}>
+                    <img src="/src/assets/1.jpg" alt="memory 6" />
+                    <p>Memory 6</p>
+                  </div>
+                </div>
+              </div>
+              {/* Slide 3 */}
+              <div className={`carousel-slide ${carouselSlide === 2 ? 'active' : ''}`}>
+                <h3>Special Moments</h3>
+                <div className="polaroid-gallery">
+                  <div className="polaroid" onClick={() => setEnlargedImage('/src/assets/1.jpg')}>
+                    <img src="/src/assets/1.jpg" alt="memory 7" />
+                    <p>Memory 7</p>
+                  </div>
+                  <div className="polaroid" onClick={() => setEnlargedImage('/src/assets/1.jpg')}>
+                    <img src="/src/assets/1.jpg" alt="memory 8" />
+                    <p>Memory 8</p>
+                  </div>
+                  <div className="polaroid" onClick={() => setEnlargedImage('/src/assets/1.jpg')}>
+                    <img src="/src/assets/1.jpg" alt="memory 9" />
+                    <p>Memory 9</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="carousel-controls">
+              <button 
+                className="carousel-btn" 
+                onClick={() => setCarouselSlide((carouselSlide - 1 + 3) % 3)}
+              >
+                ← Previous Slide
+              </button>
+              <span className="carousel-indicator">
+                Slide {carouselSlide + 1} of 3
+              </span>
+              <button 
+                className="carousel-btn" 
+                onClick={() => setCarouselSlide((carouselSlide + 1) % 3)}
+              >
+                Next Slide →
+              </button>
+            </div>
+          </div>
+          <div className="button-group">
+            <button onClick={() => scrollToPage(0)}>Previous</button>
+            <button onClick={() => scrollToPage(2)}>Next</button>
+          </div>
+        </section>
+        <section className="page" ref={pageRefs[2]}>
+          <h2>🎵 First Song Shared 🎵</h2>
+          <div className="songs-container">
+            <div className="song-item">
+              <div className="youtube-embed">
+                <iframe width="500" height="400" src="https://www.youtube.com/embed/" title="Love Song 1" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+              </div>
+              <h3>Your song</h3>
+              <p>Add some notes or description about this song here...</p>
+            </div>
+            <div className="song-item">
+              <div className="youtube-embed">
+                <iframe width="500" height="400" src="https://www.youtube.com/embed/" title="Love Song 2" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+              </div>
+              <h3>My song</h3>
+              <p>Add some notes or description about this song here...</p>
+            </div>
+          </div>
+          <div className="button-group">
+            <button onClick={() => scrollToPage(1)}>Previous</button>
+            <button onClick={() => scrollToPage(3)}>Next</button>
+          </div>
+        </section>
+        <section className="page" ref={pageRefs[3]}>
+          <h2>💕 Love Letters 💕</h2>
+          <div className="love-letters-container">
+            <div className="love-letter-card open" onClick={() => setSelectedLetter(0)}>
+              <img src="/src/assets/love-letter.png" alt="love letter 1" />
+              <p>First love letter</p>
+            </div>
+            <div className="love-letter-card open" onClick={() => setSelectedLetter(1)}>
+              <img src="/src/assets/love-letter.png" alt="love letter 2" />
+              <p>1 Year anniversary</p>
+            </div>
+            <div className="love-letter-card closed" onClick={() => setShowLetterConfirmation(true)}>
+              <img src="/src/assets/love-letter-closed.png" alt="love letter 3" />
+              <p>Happy birthday love letter</p>
+            </div>
+          </div>
+          <div className="button-group">
+            <button onClick={() => scrollToPage(2)}>Previous</button>
+            <button onClick={() => scrollToPage(4)}>Next</button>
+          </div>
+        </section>
+        <section className="page" ref={pageRefs[4]}>
+          <h2>🌟 Page 4 🌟</h2>
+          <p>Another page for your birthday memories and wishes!</p>
+          <div className="button-group">
+            <button onClick={() => scrollToPage(3)}>Previous</button>
+            <button onClick={() => scrollToPage(5)}>Next</button>
+          </div>
+        </section>
+        <section className="page" ref={pageRefs[5]}>
+          <h2>🎊 Final Page 🎊</h2>
+          <p>Thank you for being the best! You're amazing! ❤️</p>
+          <div className="button-group">
+            <button onClick={() => scrollToPage(4)}>Previous</button>
+          </div>
         </section>
       </div>
-
-      {/* scroll to top button */}
-      <button className="scroll-to-top" onClick={scrollToTop}>
+      <button className="scroll-to-top" onClick={() => scrollToPage(0)}>
         <i className="fas fa-arrow-up"></i>
       </button>
+      {showSurprise && <Surprise onClose={closeSurprise} />}
+      {showLetterConfirmation && (
+        <LetterConfirmation
+          onConfirm={() => {
+            setShowLetterConfirmation(false)
+            setSelectedLetter(2)
+          }}
+          onClose={() => setShowLetterConfirmation(false)}
+        />
+      )}
+      {selectedLetter !== null && (
+        <LoveLetter
+          message={loveLetters[selectedLetter]}
+          onClose={() => setSelectedLetter(null)}
+        />
+      )}
+      {enlargedImage && (
+        <ImageModal
+          imageSrc={enlargedImage}
+          onClose={() => setEnlargedImage(null)}
+        />
+      )}
     </>
   )
 }

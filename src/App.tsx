@@ -51,14 +51,103 @@ function ImageModal({ imageSrc, onClose }: { imageSrc: string; onClose: () => vo
   )
 }
 
+function CountersPage() {
+  const [, setUpdate] = useState(0)
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setUpdate((prev) => prev + 1)
+    }, 1000)
+    return () => clearInterval(timer)
+  }, [])
+
+  const calculateTimeDiff = (targetDate: string) => {
+    const now = new Date()
+    const target = new Date(targetDate)
+    const diff = target.getTime() - now.getTime()
+    const isFuture = diff > 0
+    const absDiff = Math.abs(diff)
+    const days = Math.floor(absDiff / (1000 * 60 * 60 * 24))
+    const hours = Math.floor((absDiff / (1000 * 60 * 60)) % 24)
+    const minutes = Math.floor((absDiff / (1000 * 60)) % 60)
+    const seconds = Math.floor((absDiff / 1000) % 60)
+    return { days, hours, minutes, seconds, isFuture }
+  }
+
+  const firstMet = calculateTimeDiff('2024-06-19')
+  const becameCouple = calculateTimeDiff('2024-12-08')
+  const proposal = calculateTimeDiff('2025-07-24')
+  const lastTimeTogether = calculateTimeDiff('2026-02-16')
+  const wedding = calculateTimeDiff('2026-11-21')
+
+  return (
+    <div className="counters-section">
+      <h2>💕 Our Journey Together 💕</h2>
+      <div className="counters-grid">
+        <div className="counter-card">
+          <h3>First Met</h3>
+          <div className="counter-value">{firstMet.days}</div>
+          <p className="counter-label">Days knowing each other</p>
+          <p className="counter-date">Since 2024-06-19</p>
+        </div>
+        <div className="counter-card">
+          <h3>Became Couple</h3>
+          <div className="counter-value">{becameCouple.days}</div>
+          <p className="counter-label">Days as a Couple</p>
+          <p className="counter-date">Since 2024-12-08</p>
+        </div>
+        <div className="counter-card">
+          <h3>Proposal</h3>
+          <div className="counter-value">{proposal.days}</div>
+          <p className="counter-label">Days Engaged</p>
+          <p className="counter-date">Since 2025-07-24</p>
+        </div>
+        <div className="counter-card">
+          <h3>Last Time Together</h3>
+          <div className="counter-value">{lastTimeTogether.days}</div>
+          <p className="counter-label">Days Since We Met</p>
+          <p className="counter-date">2026-02-16</p>
+        </div>
+        <div className="counter-card wedding-countdown">
+          <h3>💒 Wedding 💒</h3>
+          <div className="wedding-timer">
+            <div className="time-unit">
+              <div className="time-value">{String(wedding.days).padStart(2, '0')}</div>
+              <p className="time-label">Days</p>
+            </div>
+            <span className="time-separator">:</span>
+            <div className="time-unit">
+              <div className="time-value">{String(wedding.hours).padStart(2, '0')}</div>
+              <p className="time-label">Hrs</p>
+            </div>
+            <span className="time-separator">:</span>
+            <div className="time-unit">
+              <div className="time-value">{String(wedding.minutes).padStart(2, '0')}</div>
+              <p className="time-label">Min</p>
+            </div>
+            <span className="time-separator">:</span>
+            <div className="time-unit">
+              <div className="time-value">{String(wedding.seconds).padStart(2, '0')}</div>
+              <p className="time-label">Sec</p>
+            </div>
+          </div>
+          <p className="counter-label">Until Our Big Day!</p>
+          <p className="counter-date">2026-11-21</p>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 function App() {
   const [showSurprise, setShowSurprise] = useState(false)
   const [selectedLetter, setSelectedLetter] = useState<number | null>(null)
   const [showLetterConfirmation, setShowLetterConfirmation] = useState(false)
   const [enlargedImage, setEnlargedImage] = useState<string | null>(null)
   const [carouselSlide, setCarouselSlide] = useState(0)
+  const [songCarouselSlide, setSongCarouselSlide] = useState(0)
   // refs for each page
-  const pageRefs = [useRef(null), useRef(null), useRef(null), useRef(null), useRef(null), useRef(null)]
+  const pageRefs = [useRef(null), useRef(null), useRef(null), useRef(null), useRef(null), useRef(null), useRef(null), useRef(null)]
 
   useEffect(() => {
     const firstPage = document.querySelector('.page:first-of-type')
@@ -86,6 +175,7 @@ function App() {
 
   const begin = () => {
     setShowSurprise(true)
+    setTimeout(() => scrollToPage(1), 500)
   }
 
   const closeSurprise = () => {
@@ -131,11 +221,15 @@ function App() {
           <h1>Happy birthday my love! 💚</h1>
           <p>🎉 Welcome to your special surprise page 🎂</p>
           <button className="start-btn" onClick={begin}>Start the surprise!</button>
-          <div className="button-group">
-            <button onClick={() => scrollToPage(1)}>Next</button>
-          </div>
         </section>
         <section className="page" ref={pageRefs[1]}>
+          <CountersPage />
+          <div className="button-group">
+            <button onClick={() => scrollToPage(0)}>Previous</button>
+            <button onClick={() => scrollToPage(2)}>Next</button>
+          </div>
+        </section>
+        <section className="page" ref={pageRefs[2]}>
           <h2>✨ Gallery Page ✨</h2>
           <div className="carousel-container">
             <div className="carousel-slides">
@@ -199,7 +293,7 @@ function App() {
                 className="carousel-btn" 
                 onClick={() => setCarouselSlide((carouselSlide - 1 + 3) % 3)}
               >
-                ← Previous Slide
+                <i className="fas fa-arrow-left"></i>
               </button>
               <span className="carousel-indicator">
                 Slide {carouselSlide + 1} of 3
@@ -208,31 +302,8 @@ function App() {
                 className="carousel-btn" 
                 onClick={() => setCarouselSlide((carouselSlide + 1) % 3)}
               >
-                Next Slide →
+                <i className="fas fa-arrow-right"></i>
               </button>
-            </div>
-          </div>
-          <div className="button-group">
-            <button onClick={() => scrollToPage(0)}>Previous</button>
-            <button onClick={() => scrollToPage(2)}>Next</button>
-          </div>
-        </section>
-        <section className="page" ref={pageRefs[2]}>
-          <h2>🎵 First Song Shared 🎵</h2>
-          <div className="songs-container">
-            <div className="song-item">
-              <div className="youtube-embed">
-                <iframe width="500" height="400" src="https://www.youtube.com/embed/" title="Love Song 1" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
-              </div>
-              <h3>Your song</h3>
-              <p>Add some notes or description about this song here...</p>
-            </div>
-            <div className="song-item">
-              <div className="youtube-embed">
-                <iframe width="500" height="400" src="https://www.youtube.com/embed/" title="Love Song 2" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
-              </div>
-              <h3>My song</h3>
-              <p>Add some notes or description about this song here...</p>
             </div>
           </div>
           <div className="button-group">
@@ -241,6 +312,80 @@ function App() {
           </div>
         </section>
         <section className="page" ref={pageRefs[3]}>
+          <h2>🎵 Our Special Songs 🎵</h2>
+          <div className="carousel-container">
+            <div className="carousel-slides">
+              {/* Slide 1 */}
+              <div className={`carousel-slide ${songCarouselSlide === 0 ? 'active' : ''}`}>
+                <h3>First Song Shared</h3>
+                <div className="songs-container">
+                  <div className="song-item">
+                    <div className="youtube-embed">
+                      <iframe width="500" height="400" src="https://www.youtube.com/embed/" title="Love Song 1" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                    </div>
+                    <h3>Your song</h3>
+                    <p>Add some notes or description about this song here...</p>
+                  </div>
+                  <div className="song-item">
+                    <div className="youtube-embed">
+                      <iframe width="500" height="400" src="https://www.youtube.com/embed/" title="Love Song 2" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                    </div>
+                    <h3>My song</h3>
+                    <p>Add some notes or description about this song here...</p>
+                  </div>
+                </div>
+              </div>
+              {/* Slide 2 */}
+              <div className={`carousel-slide ${songCarouselSlide === 1 ? 'active' : ''}`}>
+                <h3>Favorite Songs</h3>
+                <div className="songs-container">
+                  <div className="song-item">
+                    <div className="youtube-embed">
+                      <iframe width="500" height="400" src="https://www.youtube.com/embed/" title="Favorite Song 1" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                    </div>
+                    <h3>Song one</h3>
+                    <p>Add some notes or description about this song here...</p>
+                  </div>
+                </div>
+              </div>
+              {/* Slide 3 */}
+              <div className={`carousel-slide ${songCarouselSlide === 2 ? 'active' : ''}`}>
+                <h3>Spotify Playlists</h3>
+                <div className="songs-container">
+                  <div className="song-item">
+                    <div className="spotify-embed">
+                      <iframe data-testid="embed-iframe" style={{ borderRadius: '12px' }} src="https://open.spotify.com/embed/playlist/0MbVxCvEG7DxqMB29vVFbl?utm_source=generator" width="100%" height="352" frameBorder="0" allowFullScreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    </div>
+                    <h3>Our Playlist</h3>
+                    <p>Add some notes or description about this playlist here...</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="carousel-controls">
+              <button 
+                className="carousel-btn" 
+                onClick={() => setSongCarouselSlide((songCarouselSlide - 1 + 3) % 3)}
+              >
+                <i className="fas fa-arrow-left"></i>
+              </button>
+              <span className="carousel-indicator">
+                Slide {songCarouselSlide + 1} of 3
+              </span>
+              <button 
+                className="carousel-btn" 
+                onClick={() => setSongCarouselSlide((songCarouselSlide + 1) % 3)}
+              >
+                <i className="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+          <div className="button-group">
+            <button onClick={() => scrollToPage(2)}>Previous</button>
+            <button onClick={() => scrollToPage(4)}>Next</button>
+          </div>
+        </section>
+        <section className="page" ref={pageRefs[4]}>
           <h2>💕 Love Letters 💕</h2>
           <div className="love-letters-container">
             <div className="love-letter-card open" onClick={() => setSelectedLetter(0)}>
@@ -257,24 +402,41 @@ function App() {
             </div>
           </div>
           <div className="button-group">
-            <button onClick={() => scrollToPage(2)}>Previous</button>
-            <button onClick={() => scrollToPage(4)}>Next</button>
-          </div>
-        </section>
-        <section className="page" ref={pageRefs[4]}>
-          <h2>🌟 Page 4 🌟</h2>
-          <p>Another page for your birthday memories and wishes!</p>
-          <div className="button-group">
             <button onClick={() => scrollToPage(3)}>Previous</button>
             <button onClick={() => scrollToPage(5)}>Next</button>
           </div>
         </section>
         <section className="page" ref={pageRefs[5]}>
-          <h2>🎊 Final Page 🎊</h2>
-          <p>Thank you for being the best! You're amazing! ❤️</p>
+          <h2>Future Bucket List 🎯</h2>
+          <div className="bucket-list-container">
+            <ul className="bucket-list">
+              <li className="completed">✅ Travel the world together ✈️</li>
+              <li>Learn a new language as a couple 📚</li>
+              <li>Build our dream home together 🏡</li>
+              <li>Create amazing memories every day 📸</li>
+              <li>Support each other's dreams and goals 💪</li>
+              <li>Dance in the rain together 🌧️</li>
+              <li>Watch every sunset together 🌅</li>
+              <li>Grow old together and still be in love 👴👵💕</li>
+            </ul>
+          </div>
           <div className="button-group">
             <button onClick={() => scrollToPage(4)}>Previous</button>
+            <button onClick={() => scrollToPage(6)}>Next</button>
           </div>
+        </section>
+        <section className="page" ref={pageRefs[6]}>
+          <h2>🌟 Page 5 🌟</h2>
+          <p>Another page for your birthday memories and wishes!</p>
+          <div className="button-group">
+            <button onClick={() => scrollToPage(5)}>Previous</button>
+            <button onClick={() => scrollToPage(7)}>Next</button>
+          </div>
+        </section>
+        <section className="page" ref={pageRefs[7]}>
+          <p className="final-page-quote">I know what I want, what kind of person I need to be — for you, for us.</p>
+          <img src="/src/assets/endgame.png" alt="endgame" className="endgame-image" />
+          <p className="final-page-quote">Thank you choosing me sayang, and remember... <br></br>Love you more than the most 💚</p>
         </section>
       </div>
       <button className="scroll-to-top" onClick={() => scrollToPage(0)}>

@@ -2,6 +2,69 @@ import { useEffect, useState, useRef } from 'react'
 import './App.css'
 import { loveLetters } from './loveLetters'
 
+function LockScreen({ onUnlock }: { onUnlock: () => void }) {
+  const [passcode, setPasscode] = useState('')
+  const [error, setError] = useState(false)
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/\D/g, '').slice(0, 4)
+    setPasscode(value)
+    setError(false)
+  }
+
+  const handleSubmit = () => {
+    if (passcode === '0307') {
+      onUnlock()
+    } else {
+      setError(true)
+      setPasscode('')
+    }
+  }
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && passcode.length === 4) {
+      handleSubmit()
+    }
+  }
+
+  return (
+    <div className="lock-screen">
+      <div className="lock-content">
+        <div className="lock-card">
+          <div className="lock-icon">🔒</div>
+          <h1 className="lock-title">Unlock Your Surprise</h1>
+          <p className="lock-subtitle">Enter the special date to continue</p>
+          <div className="passcode-container">
+            <input
+              type="tel"
+              className={`passcode-input ${error ? 'error' : ''}`}
+              value={passcode}
+              onChange={handleInputChange}
+              onKeyPress={handleKeyPress}
+              placeholder="••••"
+              maxLength={4}
+              autoFocus
+            />
+            <div className="passcode-dots">
+              {[0, 1, 2, 3].map((i) => (
+                <div key={i} className={`dot ${passcode.length > i ? 'filled' : ''}`} />
+              ))}
+            </div>
+          </div>
+          {error && <p className="error-message">Incorrect code. Try again! 💔</p>}
+          <button
+            className="unlock-btn"
+            onClick={handleSubmit}
+            disabled={passcode.length !== 4}
+          >
+            Unlock 🔑
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 function Surprise({ onClose }: { onClose: () => void }) {
   return (
     <div className="surprise-popup">
@@ -140,6 +203,7 @@ function CountersPage() {
 }
 
 function App() {
+  const [isUnlocked, setIsUnlocked] = useState(false)
   const [showSurprise, setShowSurprise] = useState(false)
   const [selectedLetter, setSelectedLetter] = useState<number | null>(null)
   const [showLetterConfirmation, setShowLetterConfirmation] = useState(false)
@@ -190,6 +254,10 @@ function App() {
     }
   }
 
+  if (!isUnlocked) {
+    return <LockScreen onUnlock={() => setIsUnlocked(true)} />
+  }
+
   return (
     <>
       {/* static background layer */}
@@ -219,7 +287,7 @@ function App() {
         <section className="page" ref={pageRefs[0]}>
           <img src="/src/assets/1.jpg" alt="birthday gift" className="rotated-image" />
           <h1>Happy birthday my love! 💚</h1>
-          <p>🎉 Welcome to your special surprise page 🎂</p>
+          <p>🎉 Welcome to your special surprise birthday gift 🎂</p>
           <button className="start-btn" onClick={begin}>Start the surprise!</button>
         </section>
         <section className="page" ref={pageRefs[1]}>

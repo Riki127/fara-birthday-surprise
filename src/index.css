@@ -1773,3 +1773,201 @@ button:focus-visible {
     max-height: 80vh;
   }
 }
+
+/* Lock Screen Styling */
+.lock-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, #2a4020 0%, #1a3010 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.lock-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 450px;
+  padding: 20px;
+}
+
+.lock-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 24px;
+  padding: 40px 30px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  backdrop-filter: blur(10px);
+  animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.lock-icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  10%, 30% { transform: scale(1.1); }
+  20% { transform: scale(1); }
+}
+
+.lock-title {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.5rem;
+  color: #2a4020;
+  margin: 0 0 10px 0;
+  font-weight: 700;
+}
+
+.lock-subtitle {
+  color: #555;
+  font-size: 1rem;
+  margin: 0 0 30px 0;
+}
+
+.passcode-container {
+  position: relative;
+  margin: 30px 0;
+}
+
+.passcode-input {
+  width: 100%;
+  max-width: 250px;
+  padding: 15px;
+  font-size: 2rem;
+  letter-spacing: 20px;
+  text-align: center;
+  border: 3px solid #397c1b;
+  border-radius: 12px;
+  background: white;
+  color: transparent;
+  caret-color: transparent;
+  outline: none;
+  font-family: monospace;
+  transition: all 0.3s ease;
+}
+
+.passcode-input:focus {
+  border-color: #4a9c24;
+  box-shadow: 0 0 0 4px rgba(57, 124, 27, 0.2);
+}
+
+.passcode-input.error {
+  border-color: #dc3545;
+}
+
+.passcode-input::placeholder {
+  color: transparent;
+  opacity: 0;
+}
+
+.passcode-dots {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  gap: 20px;
+  pointer-events: none;
+}
+
+.dot {
+  width: 20px;
+  height: 20px;
+  border: 3px solid #397c1b;
+  border-radius: 50%;
+  background: white;
+  transition: all 0.3s ease;
+}
+
+.dot.filled {
+  background: #397c1b;
+  transform: scale(1.1);
+}
+
+.error-message {
+  color: #dc3545;
+  font-size: 0.9rem;
+  margin: 10px 0;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.unlock-btn {
+  width: 100%;
+  max-width: 250px;
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #397c1b 0%, #4a9c24 100%);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.unlock-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(57, 124, 27, 0.3);
+  background: linear-gradient(135deg, #4a9c24 0%, #5ab530 100%);
+}
+
+.unlock-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.lock-hint {
+  color: #777;
+  font-size: 0.85rem;
+  margin: 20px 0 0 0;
+  font-style: italic;
+}
+
+@media (max-width: 480px) {
+  .lock-card {
+    padding: 30px 20px;
+  }
+  
+  .lock-title {
+    font-size: 2rem;
+  }
+  
+  .lock-icon {
+    font-size: 3rem;
+  }
+  
+  .passcode-input {
+    font-size: 1.5rem;
+    letter-spacing: 15px;
+  }
+  
+  .passcode-dots {
+    gap: 15px;
+  }
+  
+  .dot {
+    width: 16px;
+    height: 16px;
+  }
+}

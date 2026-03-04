@@ -410,14 +410,15 @@ function App() {
           <h2>Future Bucket List 🎯</h2>
           <div className="bucket-list-container">
             <ul className="bucket-list">
-              <li className="completed">✅ Travel the world together ✈️</li>
-              <li>Learn a new language as a couple 📚</li>
-              <li>Build our dream home together 🏡</li>
-              <li>Create amazing memories every day 📸</li>
-              <li>Support each other's dreams and goals 💪</li>
-              <li>Dance in the rain together 🌧️</li>
-              <li>Watch every sunset together 🌅</li>
-              <li>Grow old together and still be in love 👴👵💕</li>
+              <li className="completed">✅ Sweden trip ✈️</li>
+              <li>Having our honeymoon in Japan 🇯🇵</li>
+              <li>Traveling to London 🇬🇧</li>
+              <li>Excercise together 🏋️‍♂️</li>
+              <li>Having a highschool musical moment together 🎭</li>
+              <li>Buying a new house 🏡</li>
+              <li>Having kids 👶</li>
+              <li>Grow old together and still be in love 👴👵</li>
+              <p>And many more adventures to come 💕</p>
             </ul>
           </div>
           <div className="button-group">

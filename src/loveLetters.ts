@@ -70,5 +70,31 @@ I will try my best for us and our future children, and I will work towards becom
 Us meeting has been such a blessing from god. Whatever happens I believe that we will still have an amazing life together.
 Thank you my love for always being there for me, even during my lowest times.
 I love you more than the most, and I will always choose you and love you even more forever 💚💚💚`,
-  'Your third love letter message here! 💌'
+  `To my birthday love,
+
+Happy 28th birthday sayangggg same age as me now! heheheh
+Writing this after you went home from Sweden... so sad :( 
+The Sweden trip really felt like a warm and happy dream come true.
+Can't wait to do many more trips and experiences with you my love 💚
+
+Today is yourrr day! Hope you will have it so fun during your birthday and on Sunday with family.
+Hope you like the birthday gifts heheh, this one was a bit more creative so I hope you feel extra loved and cared on your special day!
+Hopefully this will be the last time we will celebrate our birthdays LDR so I wanted to make this one a bit more special for you and something that will always be there.
+
+As you mentioned during my birthday, today is your last birthday before we get married. Soon I can call you my wife!
+I can't wait to have you by my side everyday and just live life day by day 💚
+
+Once again selamat ulang tahun my love! 
+Wish that everyday that you grow and become the best version of yourself, and I will be there to support you everyday.
+Wish that you and your family stays healthy for many many many more years, and I will make sure that you stay healthy and that we can support our families.
+Wish that you will heal from the scars that you've had to carry, and I will be there to make sure you feel loved and keep on healing.
+Wish that you can experience the stuff you want to experience, and I will be there to help make it a reality.
+Wish that you will be able to taste the best foods there is, and I will be there to reserve a table for us.
+Wish that you will feel comfortable, strong and confident being you, and I will be there to tell that you how beautiful as a whole as much as possible.
+Wish that you will be the happies you have ever been, and I will be there to make sure my soon to be wife will be happy.
+
+Happy birthday future wife,
+Praying everyday for your success and happiness while being your number one supporter.
+To many more birthdays and happy moments to come,
+Love you more than the most 💚`
 ]

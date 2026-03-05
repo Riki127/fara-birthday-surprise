@@ -32,7 +32,7 @@ function LockScreen({ onUnlock }: { onUnlock: () => void }) {
       <div className="lock-content">
         <div className="lock-card">
           <div className="lock-icon">🔒</div>
-          <h1 className="lock-title">Unlock Your Surprise</h1>
+          <h1 className="lock-title">Unlock Your surpise gift</h1>
           <p className="lock-subtitle">Enter the special date to continue</p>
           <div className="passcode-container">
             <input
@@ -70,7 +70,7 @@ function Surprise({ onClose }: { onClose: () => void }) {
     <div className="surprise-popup">
       <div className="surprise-content">
         <h2>🎁 Surprise! 🎁</h2>
-        <p>Hope you like this little animation page 😘</p>
+        <p>Hope you like this little page 😘</p>
         <button className="surprise-close-btn" onClick={onClose}>Close</button>
       </div>
     </div>
@@ -289,10 +289,10 @@ function App() {
         <section className="page" ref={pageRefs[0]}>
           <div className="image-arc">
             <img src="/src/assets/1.jpg" alt="memory 1" className="rotated-image arc-img-1" />
-            <img src="/src/assets/1.jpg" alt="memory 2" className="rotated-image arc-img-2" />
-            <img src="/src/assets/1.jpg" alt="memory 3" className="rotated-image arc-img-3" />
-            <img src="/src/assets/1.jpg" alt="memory 4" className="rotated-image arc-img-4" />
-            <img src="/src/assets/1.jpg" alt="memory 5" className="rotated-image arc-img-5" />
+            <img src="/src/assets/2.jpeg" alt="memory 2" className="rotated-image arc-img-2" />
+            <img src="/src/assets/3.jpg" alt="memory 3" className="rotated-image arc-img-3" />
+            <img src="/src/assets/4.jpeg" alt="memory 4" className="rotated-image arc-img-4" />
+            <img src="/src/assets/5.jpeg" alt="memory 5" className="rotated-image arc-img-5" />
           </div>
           <h1>Happy birthday my love! 💚</h1>
           <p>🎉 Welcome to your special surprise birthday gift 🎂</p>
@@ -315,9 +315,9 @@ function App() {
               <div className={`carousel-slide ${carouselSlide === 0 ? 'active' : ''}`}>
                 <h3>Memories Together</h3>
                 <div className="polaroid-gallery">
-                  <div className="polaroid" onClick={() => setEnlargedImage('/src/assets/1.jpg')}>
-                    <img src="/src/assets/1.jpg" alt="memory 1" />
-                    <p>Memory 1</p>
+                  <div className="polaroid" onClick={() => setEnlargedImage('/src/assets/memory-1.jpeg')}>
+                    <img src="/src/assets/memory-1.jpeg" alt="memory 1" />
+                    <p>Same pose!</p>
                   </div>
                   <div className="polaroid" onClick={() => setEnlargedImage('/src/assets/1.jpg')}>
                     <img src="/src/assets/1.jpg" alt="memory 2" />

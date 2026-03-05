@@ -1,6 +1,24 @@
 import { useEffect, useState, useRef } from 'react'
 import './App.css'
 import { loveLetters } from './loveLetters'
+// Image imports
+import img1 from './assets/1.jpg'
+import img2 from './assets/2.jpeg'
+import img3 from './assets/3.jpg'
+import img4 from './assets/4.jpeg'
+import img5 from './assets/5.jpeg'
+import memory1 from './assets/memory-1.jpeg'
+import memory2 from './assets/memory-2.jpeg'
+import memory3 from './assets/memory-3.jpeg'
+import adv1 from './assets/adv1.jpeg'
+import adv2 from './assets/adv2.jpeg'
+import adv3 from './assets/adv3.jpeg'
+import special1 from './assets/special1.jpeg'
+import special2 from './assets/special2.jpg'
+import special3 from './assets/special3.jpg'
+import loveLetter from './assets/love-letter.png'
+import loveLetterClosed from './assets/love-letter-closed.png'
+import endgame from './assets/endgame.png'
 
 function LockScreen({ onUnlock }: { onUnlock: () => void }) {
   const [passcode, setPasscode] = useState('')
@@ -288,11 +306,11 @@ function App() {
       <div className="container">
         <section className="page" ref={pageRefs[0]}>
           <div className="image-arc">
-            <img src="/src/assets/1.jpg" alt="memory 1" className="rotated-image arc-img-1" />
-            <img src="/src/assets/2.jpeg" alt="memory 2" className="rotated-image arc-img-2" />
-            <img src="/src/assets/3.jpg" alt="memory 3" className="rotated-image arc-img-3" />
-            <img src="/src/assets/4.jpeg" alt="memory 4" className="rotated-image arc-img-4" />
-            <img src="/src/assets/5.jpeg" alt="memory 5" className="rotated-image arc-img-5" />
+            <img src={img1} alt="memory 1" className="rotated-image arc-img-1" />
+            <img src={img2} alt="memory 2" className="rotated-image arc-img-2" />
+            <img src={img3} alt="memory 3" className="rotated-image arc-img-3" />
+            <img src={img4} alt="memory 4" className="rotated-image arc-img-4" />
+            <img src={img5} alt="memory 5" className="rotated-image arc-img-5" />
           </div>
           <h1>Happy birthday my love! 💚</h1>
           <p>🎉 Welcome to your special surprise birthday gift 🎂</p>
@@ -315,16 +333,16 @@ function App() {
               <div className={`carousel-slide ${carouselSlide === 0 ? 'active' : ''}`}>
                 <h3>Memories Together</h3>
                 <div className="polaroid-gallery">
-                  <div className="polaroid" onClick={() => setEnlargedImage('/src/assets/memory-1.jpeg')}>
-                    <img src="/src/assets/memory-1.jpeg" alt="memory 1" />
+                  <div className="polaroid" onClick={() => setEnlargedImage(memory1)}>
+                    <img src={memory1} alt="memory 1" />
                     <p>Same pose ✌️</p>
                   </div>
-                  <div className="polaroid" onClick={() => setEnlargedImage('/src/assets/memory-2.jpeg')}>
-                    <img src="/src/assets/memory-2.jpeg" alt="memory 2" />
+                  <div className="polaroid" onClick={() => setEnlargedImage(memory2)}>
+                    <img src={memory2} alt="memory 2" />
                     <p>First aquarium date 🐟</p>
                   </div>
-                  <div className="polaroid" onClick={() => setEnlargedImage('/src/assets/memory-3.jpeg')}>
-                    <img src="/src/assets/memory-3.jpeg" alt="memory 3" />
+                  <div className="polaroid" onClick={() => setEnlargedImage(memory3)}>
+                    <img src={memory3} alt="memory 3" />
                     <p>My first concert 🎵</p>
                   </div>
                 </div>
@@ -333,16 +351,16 @@ function App() {
               <div className={`carousel-slide ${carouselSlide === 1 ? 'active' : ''}`}>
                 <h3>Our Adventures</h3>
                 <div className="polaroid-gallery">
-                  <div className="polaroid" onClick={() => setEnlargedImage('/src/assets/adv1.jpeg')}>
-                    <img src="/src/assets/adv1.jpeg" alt="memory 4" />
+                  <div className="polaroid" onClick={() => setEnlargedImage(adv1)}>
+                    <img src={adv1} alt="memory 4" />
                     <p>Food & Snacks adventure 🍵</p>
                   </div>
-                  <div className="polaroid" onClick={() => setEnlargedImage('/src/assets/adv2.jpeg')}>
-                    <img src="/src/assets/adv2.jpeg" alt="memory 5" />
+                  <div className="polaroid" onClick={() => setEnlargedImage(adv2)}>
+                    <img src={adv2} alt="memory 5" />
                     <p>Sweden adventure 🇸🇪</p>
                   </div>
-                  <div className="polaroid" onClick={() => setEnlargedImage('/src/assets/adv3.jpeg')}>
-                    <img src="/src/assets/adv3.jpeg" alt="memory 6" />
+                  <div className="polaroid" onClick={() => setEnlargedImage(adv3)}>
+                    <img src={adv3} alt="memory 6" />
                     <p>Bandung adventure 🇮🇩</p>
                   </div>
                 </div>
@@ -351,16 +369,16 @@ function App() {
               <div className={`carousel-slide ${carouselSlide === 2 ? 'active' : ''}`}>
                 <h3>Special Moments</h3>
                 <div className="polaroid-gallery">
-                  <div className="polaroid" onClick={() => setEnlargedImage('/src/assets/special1.jpeg')}>
-                    <img src="/src/assets/special1.jpeg" alt="memory 7" />
+                  <div className="polaroid" onClick={() => setEnlargedImage(special1)}>
+                    <img src={special1} alt="memory 7" />
                     <p>Proposal 💍</p>
                   </div>
-                  <div className="polaroid" onClick={() => setEnlargedImage('/src/assets/special2.jpg')}>
-                    <img src="/src/assets/special2.jpg" alt="memory 8" />
+                  <div className="polaroid" onClick={() => setEnlargedImage(special2)}>
+                    <img src={special2} alt="memory 8" />
                     <p>Pre-wedding shoot 📸</p>
                   </div>
-                  <div className="polaroid" onClick={() => setEnlargedImage('/src/assets/special3.jpg')}>
-                    <img src="/src/assets/special3.jpg" alt="memory 9" />
+                  <div className="polaroid" onClick={() => setEnlargedImage(special3)}>
+                    <img src={special3} alt="memory 9" />
                     <p>Aurora Borealis 🌌</p>
                   </div>
                 </div>
@@ -467,15 +485,15 @@ function App() {
           <h2>💕 Love Letters 💕</h2>
           <div className="love-letters-container">
             <div className="love-letter-card open" onClick={() => setSelectedLetter(0)}>
-              <img src="/src/assets/love-letter.png" alt="love letter 1" />
+              <img src={loveLetter} alt="love letter 1" />
               <p>First love letter</p>
             </div>
             <div className="love-letter-card open" onClick={() => setSelectedLetter(1)}>
-              <img src="/src/assets/love-letter.png" alt="love letter 2" />
+              <img src={loveLetter} alt="love letter 2" />
               <p>1 Year anniversary</p>
             </div>
             <div className="love-letter-card closed" onClick={() => setShowLetterConfirmation(true)}>
-              <img src="/src/assets/love-letter-closed.png" alt="love letter 3" />
+              <img src={loveLetterClosed} alt="love letter 3" />
               <p>Happy birthday love letter</p>
             </div>
           </div>
@@ -505,8 +523,23 @@ function App() {
           </div>
         </section>
         <section className="page" ref={pageRefs[6]}>
-          <h2>🌟 Page 5 🌟</h2>
-          <p>Another page for your birthday memories and wishes!</p>
+          <div className="thank-you-card">
+            <div className="card-inner">
+              <h2 className="card-title">Thank you sayang💚</h2>
+              <p className="card-message">
+                Thank you for being my light and my forever home.
+              </p>
+              <p className="card-message">
+                Thank you for choosing me, believing in us, and loving me the way you do.
+              </p>
+              <p className="card-message">
+                All these moments is just the beginning and I can't wait make more memories with you and spend the rest of my life loving you.
+              </p>
+              <p className="card-signature">
+                For many more memories together,<br/>Forever yours 💕
+              </p>
+            </div>
+          </div>
           <div className="button-group">
             <button onClick={() => scrollToPage(5)}>Previous</button>
             <button onClick={() => scrollToPage(7)}>Next</button>
@@ -514,8 +547,8 @@ function App() {
         </section>
         <section className="page" ref={pageRefs[7]}>
           <p className="final-page-quote">I know what I want, what kind of person I need to be — for you, for us.</p>
-          <img src="/src/assets/endgame.png" alt="endgame" className="endgame-image" />
-          <p className="final-page-quote">Thank you choosing me sayang, and remember... <br></br>Love you more than the most 💚</p>
+          <img src={endgame} alt="endgame" className="endgame-image" />
+          <p className="final-page-quote">Love you more than the most 💚</p>
         </section>
           </>
         )}

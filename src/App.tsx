@@ -70,7 +70,7 @@ function Surprise({ onClose }: { onClose: () => void }) {
     <div className="surprise-popup">
       <div className="surprise-content">
         <h2>🎁 Surprise! 🎁</h2>
-        <p>Hope you like this little page 😘</p>
+        <p>Hope you enjoy this small and gemes memory <br></br>compilation page 😘</p>
         <button className="surprise-close-btn" onClick={onClose}>Close</button>
       </div>
     </div>
@@ -169,7 +169,7 @@ function CountersPage() {
           <h3>Last Time Together</h3>
           <div className="counter-value">{lastTimeTogether.days}</div>
           <p className="counter-label">Days Since We Met</p>
-          <p className="counter-date">2026-02-16</p>
+          <p className="counter-date">Since 2026-02-16</p>
         </div>
         <div className="counter-card wedding-countdown">
           <h3>💒 Wedding 💒</h3>
@@ -237,40 +237,6 @@ function App() {
     observer.observe(firstPage)
     return () => observer.disconnect()
   }, [])
-
-  // Add page enter animations when content is revealed
-  useEffect(() => {
-    if (isContentRevealed) {
-      setTimeout(() => {
-        const pages = document.querySelectorAll('.page')
-        console.log('Applying animations to', pages.length, 'pages')
-        pages.forEach((page, index) => {
-          if (index > 0) {
-            const animationNames = ['pageSlideInUp', 'pageSlideInLeft', 'pageSlideInRight', 'pageZoomIn']
-            const animationName = animationNames[(index - 1) % animationNames.length]
-            const delayMs = (index - 1) * 100
-            const el = page as HTMLElement
-            
-            // Apply animation after delay
-            setTimeout(() => {
-              console.log(`Animating page ${index} with ${animationName}`)
-              el.style.animation = `${animationName} 0.6s ease-out forwards`
-            }, delayMs)
-          }
-        })
-      }, 100)
-    } else {
-      // Cleanup when hiding content
-      const pages = document.querySelectorAll('.page')
-      pages.forEach((page, index) => {
-        if (index > 0) {
-          const el = page as HTMLElement
-          el.style.animation = 'none'
-          el.style.opacity = '0'
-        }
-      })
-    }
-  }, [isContentRevealed])
 
   const begin = () => {
     setIsContentRevealed(true)
@@ -351,15 +317,15 @@ function App() {
                 <div className="polaroid-gallery">
                   <div className="polaroid" onClick={() => setEnlargedImage('/src/assets/memory-1.jpeg')}>
                     <img src="/src/assets/memory-1.jpeg" alt="memory 1" />
-                    <p>Same pose!</p>
+                    <p>Same pose ✌️</p>
                   </div>
-                  <div className="polaroid" onClick={() => setEnlargedImage('/src/assets/1.jpg')}>
-                    <img src="/src/assets/1.jpg" alt="memory 2" />
-                    <p>Memory 2</p>
+                  <div className="polaroid" onClick={() => setEnlargedImage('/src/assets/memory-2.jpeg')}>
+                    <img src="/src/assets/memory-2.jpeg" alt="memory 2" />
+                    <p>First aquarium date 🐟</p>
                   </div>
-                  <div className="polaroid" onClick={() => setEnlargedImage('/src/assets/1.jpg')}>
-                    <img src="/src/assets/1.jpg" alt="memory 3" />
-                    <p>Memory 3</p>
+                  <div className="polaroid" onClick={() => setEnlargedImage('/src/assets/memory-3.jpeg')}>
+                    <img src="/src/assets/memory-3.jpeg" alt="memory 3" />
+                    <p>My first concert 🎵</p>
                   </div>
                 </div>
               </div>
@@ -367,17 +333,17 @@ function App() {
               <div className={`carousel-slide ${carouselSlide === 1 ? 'active' : ''}`}>
                 <h3>Our Adventures</h3>
                 <div className="polaroid-gallery">
-                  <div className="polaroid" onClick={() => setEnlargedImage('/src/assets/1.jpg')}>
-                    <img src="/src/assets/1.jpg" alt="memory 4" />
-                    <p>Memory 4</p>
+                  <div className="polaroid" onClick={() => setEnlargedImage('/src/assets/adv1.jpeg')}>
+                    <img src="/src/assets/adv1.jpeg" alt="memory 4" />
+                    <p>Food & Snacks adventure 🍵</p>
                   </div>
-                  <div className="polaroid" onClick={() => setEnlargedImage('/src/assets/1.jpg')}>
-                    <img src="/src/assets/1.jpg" alt="memory 5" />
-                    <p>Memory 5</p>
+                  <div className="polaroid" onClick={() => setEnlargedImage('/src/assets/adv2.jpeg')}>
+                    <img src="/src/assets/adv2.jpeg" alt="memory 5" />
+                    <p>Sweden adventure 🇸🇪</p>
                   </div>
-                  <div className="polaroid" onClick={() => setEnlargedImage('/src/assets/1.jpg')}>
-                    <img src="/src/assets/1.jpg" alt="memory 6" />
-                    <p>Memory 6</p>
+                  <div className="polaroid" onClick={() => setEnlargedImage('/src/assets/adv3.jpeg')}>
+                    <img src="/src/assets/adv3.jpeg" alt="memory 6" />
+                    <p>Bandung adventure 🇮🇩</p>
                   </div>
                 </div>
               </div>
@@ -385,17 +351,17 @@ function App() {
               <div className={`carousel-slide ${carouselSlide === 2 ? 'active' : ''}`}>
                 <h3>Special Moments</h3>
                 <div className="polaroid-gallery">
-                  <div className="polaroid" onClick={() => setEnlargedImage('/src/assets/1.jpg')}>
-                    <img src="/src/assets/1.jpg" alt="memory 7" />
-                    <p>Memory 7</p>
+                  <div className="polaroid" onClick={() => setEnlargedImage('/src/assets/special1.jpeg')}>
+                    <img src="/src/assets/special1.jpeg" alt="memory 7" />
+                    <p>Proposal 💍</p>
                   </div>
-                  <div className="polaroid" onClick={() => setEnlargedImage('/src/assets/1.jpg')}>
-                    <img src="/src/assets/1.jpg" alt="memory 8" />
-                    <p>Memory 8</p>
+                  <div className="polaroid" onClick={() => setEnlargedImage('/src/assets/special2.jpg')}>
+                    <img src="/src/assets/special2.jpg" alt="memory 8" />
+                    <p>Pre-wedding shoot 📸</p>
                   </div>
-                  <div className="polaroid" onClick={() => setEnlargedImage('/src/assets/1.jpg')}>
-                    <img src="/src/assets/1.jpg" alt="memory 9" />
-                    <p>Memory 9</p>
+                  <div className="polaroid" onClick={() => setEnlargedImage('/src/assets/special3.jpg')}>
+                    <img src="/src/assets/special3.jpg" alt="memory 9" />
+                    <p>Aurora Borealis 🌌</p>
                   </div>
                 </div>
               </div>
@@ -436,7 +402,7 @@ function App() {
                       <iframe data-testid="embed-iframe" style={{ borderRadius: '12px' }} src="https://open.spotify.com/embed/track/1bjeWoagtHmUKputLVyDxQ?utm_source=generator" width="100%" height="152" frameBorder="0" allowFullScreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                     </div>
                     <h3>Your song</h3>
-                    <p>You shared SZA and one of the one i liked a lot was Saturn, to the point i wanted to learn it on the piano!</p>
+                    <p>You shared SZA and one of the songs i liked a lot was Saturn, to the point i wanted to learn it on the piano!</p>
                   </div>
                   <div className="song-item">
                     <div className="spotify-embed">
@@ -456,7 +422,7 @@ function App() {
                       <iframe data-testid="embed-iframe" style={{ borderRadius: '12px' }} src="https://open.spotify.com/embed/track/4xmSDYn5n9Gu6mH6FSJDhf?utm_source=generator" width="100%" height="152" frameBorder="0" allowFullScreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                     </div>
                     <h3>Our LDR song</h3>
-                    <p>I remember the first time you sent me this song, quite baper since we were miles apart and have the timezone gap. <br></br>It holds a special place in our hearts.</p>
+                    <p>I remember the first time you sent me this song, <br></br>superrr baper since we were miles apart and have the timezone gap. <br></br>It holds a special place in my heart.</p>
                   </div>
                 </div>
               </div>
@@ -528,7 +494,7 @@ function App() {
               <li>Excercise together 🏋️‍♂️</li>
               <li>Having a highschool musical moment together 🎭</li>
               <li>Buying a new house 🏡</li>
-              <li>Having kids 👶</li>
+              <li>Having kids and raising them together 👶</li>
               <li>Grow old together and still be in love 👴👵</li>
               <p>And many more adventures to come 💕</p>
             </ul>

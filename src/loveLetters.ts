@@ -85,16 +85,23 @@ As you mentioned during my birthday, today is your last birthday before we get m
 I can't wait to have you by my side everyday and just live life day by day 💚
 
 Once again selamat ulang tahun my love! 
+
 Wish that everyday that you grow and become the best version of yourself, and I will be there to support you everyday.
+
 Wish that you and your family stays healthy for many many many more years, and I will make sure that you stay healthy and that we can support our families.
+
 Wish that you will heal from the scars that you've had to carry, and I will be there to make sure you feel loved and keep on healing.
+
 Wish that you can experience the stuff you want to experience, and I will be there to help make it a reality.
+
 Wish that you will be able to taste the best foods there is, and I will be there to reserve a table for us.
+
 Wish that you will feel comfortable, strong and confident being you, and I will be there to tell that you how beautiful as a whole as much as possible.
-Wish that you will be the happies you have ever been, and I will be there to make sure my soon to be wife will be happy.
+
+Wish that you will be the happiest you have ever been, and I will be there to make sure my soon to be wife will be happy.
 
 Happy birthday future wife,
 Praying everyday for your success and happiness while being your number one supporter.
 To many more birthdays and happy moments to come,
-Love you more than the most 💚`
+And dont forget... love you more than the most 💚`
 ]

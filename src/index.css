@@ -230,6 +230,80 @@ button:focus-visible {
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
 }
 
+/* Image arc container */
+.image-arc {
+  position: relative;
+  width: 100%;
+  height: 35vmin;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.image-arc .rotated-image {
+  position: absolute;
+  width: 18vmin;
+  height: 18vmin;
+  margin: 0;
+  transition: transform 0.3s ease, z-index 0.3s ease;
+}
+
+.image-arc .arc-img-3 {
+  transition: transform 0.3s ease, z-index 0.3s ease, width 0s, height 0s;
+}
+
+.image-arc .rotated-image:hover {
+  transform: scale(1.15) rotate(var(--rotation));
+  z-index: 10;
+}
+
+.image-arc .arc-img-3:hover {
+  transform: translateX(-50%) scale(1.15) rotate(0deg);
+  z-index: 10;
+}
+
+.arc-img-1 {
+  left: 12%;
+  top: 50%;
+  --rotation: -25deg;
+  transform: rotate(-25deg) translateY(-50%);
+}
+
+.arc-img-2 {
+  left: 28%;
+  top: 20%;
+  --rotation: -12deg;
+  transform: rotate(-12deg) translateY(-50%);
+}
+
+.arc-img-3 {
+  left: 50%;
+  top: 10%;
+  --rotation: 0deg;
+  transform: translateX(-50%) rotate(0deg);
+  z-index: 5;
+}
+
+.image-arc .arc-img-3 {
+  width: 26vmin !important;
+  height: 26vmin !important;
+}
+
+.arc-img-4 {
+  right: 28%;
+  top: 20%;
+  --rotation: 12deg;
+  transform: rotate(12deg) translateY(-50%);
+}
+
+.arc-img-5 {
+  right: 12%;
+  top: 50%;
+  --rotation: 25deg;
+  transform: rotate(25deg) translateY(-50%);
+}
+
 /* scroll to top button */
 .scroll-to-top {
   position: fixed;
@@ -309,21 +383,60 @@ button:focus-visible {
   }
 }
 
+@keyframes bounceInCenter {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) rotate(0deg) scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(-50%) rotate(0deg) scale(1.05);
+  }
+  70% {
+    transform: translateX(-50%) rotate(0deg) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) rotate(0deg) scale(1);
+  }
+}
+
 /* apply bounce animation to first page elements with staggered delays */
-.page:first-of-type .rotated-image.animate-bounce {
+.page:first-of-type .arc-img-1.animate-bounce {
+  animation: bounceIn 0.8s ease-out 0.1s both;
+  transition: none;
+}
+
+.page:first-of-type .arc-img-2.animate-bounce {
   animation: bounceIn 0.8s ease-out 0.2s both;
+  transition: none;
+}
+
+.page:first-of-type .arc-img-3.animate-bounce {
+  animation: bounceInCenter 0.8s ease-out 0.3s both !important;
+  transition: none !important;
+}
+
+.page:first-of-type .arc-img-4.animate-bounce {
+  animation: bounceIn 0.8s ease-out 0.4s both;
+  transition: none;
+}
+
+.page:first-of-type .arc-img-5.animate-bounce {
+  animation: bounceIn 0.8s ease-out 0.5s both;
+  transition: none;
 }
 
 .page:first-of-type h1.animate-bounce {
-  animation: bounceIn 0.8s ease-out 0.4s both;
-}
-
-.page:first-of-type p.animate-bounce {
   animation: bounceIn 0.8s ease-out 0.6s both;
 }
 
-.page:first-of-type .start-btn.animate-bounce {
+.page:first-of-type p.animate-bounce {
   animation: bounceIn 0.8s ease-out 0.8s both;
+}
+
+.page:first-of-type .start-btn.animate-bounce {
+  animation: bounceIn 0.8s ease-out 1s both;
 }
 
 /* Surprise popup modal styles */
@@ -495,10 +608,6 @@ button:focus-visible {
 }
 
 /* Next page main content (when navigating from initial page) */
-.next-page-main {
-  /* inherits background from fixed .background element */
-}
-
 .next-page-main h1 {
   color: #ffffff;
   font-size: 3rem;
@@ -590,7 +699,7 @@ button:focus-visible {
   gap: 2rem;
   justify-content: center;
   align-items: center;
-  margin-top: 2rem;
+  margin-top: 1rem;
   flex-wrap: wrap;
 }
 
@@ -898,6 +1007,8 @@ button:focus-visible {
   margin-bottom: 1rem;
   padding: 12px;
   background-color: #191414;
+  max-width: 400px;
+  width: 100%;
 }
 
 .spotify-embed:hover {
@@ -1232,6 +1343,21 @@ button:focus-visible {
     margin-bottom: 1rem;
   }
 
+  /* Image arc adjustments for tablet */
+  .image-arc {
+    height: 30vmin;
+  }
+
+  .image-arc .rotated-image {
+    width: 16vmin;
+    height: 16vmin;
+  }
+
+  .image-arc .arc-img-3 {
+    width: 22vmin !important;
+    height: 22vmin !important;
+  }
+
   /* Adjust scroll-to-top button */
   .scroll-to-top {
     width: 45px;
@@ -1270,7 +1396,7 @@ button:focus-visible {
 
   .carousel-controls {
     gap: 1rem;
-    margin-top: 1.5rem;
+    margin-top: 1rem;
   }
 
   .carousel-btn {
@@ -1329,11 +1455,12 @@ button:focus-visible {
 
   .spotify-embed {
     margin-bottom: 1rem;
+    max-width: 350px;
   }
 
   .spotify-embed iframe {
     width: 100%;
-    height: 400px;
+    height: 152px;
   }
 
   .song-item h3 {
@@ -1503,9 +1630,50 @@ button:focus-visible {
   }
 
   .rotated-image {
-    width: 12vmin;
-    height: 12vmin;
+    width: 28vmin;
+    height: 28vmin;
     border: 6px solid white;
+  }
+
+  /* Image arc adjustments for mobile */
+  .image-arc {
+    height: 40vmin;
+  }
+
+  .image-arc .rotated-image {
+    width: 20vmin;
+    height: 20vmin;
+    border: 4px solid white;
+  }
+
+  .arc-img-1 {
+    left: 2%;
+    top: 60%;
+  }
+
+  .arc-img-2 {
+    left: 15%;
+    top: 30%;
+  }
+
+  .arc-img-3 {
+    left: 50%;
+    top: 15%;
+  }
+
+  .image-arc .arc-img-3 {
+    width: 28vmin !important;
+    height: 28vmin !important;
+  }
+
+  .arc-img-4 {
+    right: 15%;
+    top: 30%;
+  }
+
+  .arc-img-5 {
+    right: 2%;
+    top: 60%;
   }
 
   .scroll-to-top {
@@ -1544,7 +1712,7 @@ button:focus-visible {
 
   .carousel-controls {
     gap: 0.8rem;
-    margin-top: 1rem;
+    margin-top: 0.25rem;
   }
 
   .carousel-btn {
@@ -1578,6 +1746,7 @@ button:focus-visible {
   .spotify-embed {
     border: 2px solid white;
     padding: 8px;
+    max-width: 320px;
   }
 
   .song-item h3 {

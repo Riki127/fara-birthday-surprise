@@ -205,6 +205,7 @@ function CountersPage() {
 function App() {
   const [isUnlocked, setIsUnlocked] = useState(false)
   const [showSurprise, setShowSurprise] = useState(false)
+  const [isContentRevealed, setIsContentRevealed] = useState(false)
   const [selectedLetter, setSelectedLetter] = useState<number | null>(null)
   const [showLetterConfirmation, setShowLetterConfirmation] = useState(false)
   const [enlargedImage, setEnlargedImage] = useState<string | null>(null)
@@ -238,6 +239,7 @@ function App() {
   }, [])
 
   const begin = () => {
+    setIsContentRevealed(true)
     setShowSurprise(true)
     setTimeout(() => scrollToPage(1), 500)
   }
@@ -285,11 +287,19 @@ function App() {
       </div>
       <div className="container">
         <section className="page" ref={pageRefs[0]}>
-          <img src="/src/assets/1.jpg" alt="birthday gift" className="rotated-image" />
+          <div className="image-arc">
+            <img src="/src/assets/1.jpg" alt="memory 1" className="rotated-image arc-img-1" />
+            <img src="/src/assets/1.jpg" alt="memory 2" className="rotated-image arc-img-2" />
+            <img src="/src/assets/1.jpg" alt="memory 3" className="rotated-image arc-img-3" />
+            <img src="/src/assets/1.jpg" alt="memory 4" className="rotated-image arc-img-4" />
+            <img src="/src/assets/1.jpg" alt="memory 5" className="rotated-image arc-img-5" />
+          </div>
           <h1>Happy birthday my love! 💚</h1>
           <p>🎉 Welcome to your special surprise birthday gift 🎂</p>
           <button className="start-btn" onClick={begin}>Start the surprise!</button>
         </section>
+        {isContentRevealed && (
+          <>
         <section className="page" ref={pageRefs[1]}>
           <CountersPage />
           <div className="button-group">
@@ -388,44 +398,44 @@ function App() {
                 <h3>First Song Shared</h3>
                 <div className="songs-container">
                   <div className="song-item">
-                    <div className="youtube-embed">
-                      <iframe width="500" height="400" src="https://www.youtube.com/embed/" title="Love Song 1" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                    <div className="spotify-embed">
+                      <iframe data-testid="embed-iframe" style={{ borderRadius: '12px' }} src="https://open.spotify.com/embed/track/1bjeWoagtHmUKputLVyDxQ?utm_source=generator" width="100%" height="152" frameBorder="0" allowFullScreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                     </div>
                     <h3>Your song</h3>
-                    <p>Add some notes or description about this song here...</p>
+                    <p>You shared SZA and one of the one i liked a lot was Saturn, to the point i wanted to learn it on the piano!</p>
                   </div>
                   <div className="song-item">
-                    <div className="youtube-embed">
-                      <iframe width="500" height="400" src="https://www.youtube.com/embed/" title="Love Song 2" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                    <div className="spotify-embed">
+                      <iframe data-testid="embed-iframe" style={{ borderRadius: '12px' }} src="https://open.spotify.com/embed/track/0AcloSrsvX9VZUjWVCMNMH?utm_source=generator" width="100%" height="152" frameBorder="0" allowFullScreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                     </div>
                     <h3>My song</h3>
-                    <p>Add some notes or description about this song here...</p>
+                    <p>I remember sending this song I was thinking it would be nice to share it with you. Some self-love vibes.</p>
                   </div>
                 </div>
               </div>
               {/* Slide 2 */}
               <div className={`carousel-slide ${songCarouselSlide === 1 ? 'active' : ''}`}>
-                <h3>Favorite Songs</h3>
+                <h3>Special song</h3>
                 <div className="songs-container">
                   <div className="song-item">
-                    <div className="youtube-embed">
-                      <iframe width="500" height="400" src="https://www.youtube.com/embed/" title="Favorite Song 1" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                    <div className="spotify-embed">
+                      <iframe data-testid="embed-iframe" style={{ borderRadius: '12px' }} src="https://open.spotify.com/embed/track/4xmSDYn5n9Gu6mH6FSJDhf?utm_source=generator" width="100%" height="152" frameBorder="0" allowFullScreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                     </div>
-                    <h3>Song one</h3>
-                    <p>Add some notes or description about this song here...</p>
+                    <h3>Our LDR song</h3>
+                    <p>I remember the first time you sent me this song, quite baper since we were miles apart and have the timezone gap. <br></br>It holds a special place in our hearts.</p>
                   </div>
                 </div>
               </div>
               {/* Slide 3 */}
               <div className={`carousel-slide ${songCarouselSlide === 2 ? 'active' : ''}`}>
-                <h3>Spotify Playlists</h3>
+                <h3>Spotify playlist</h3>
                 <div className="songs-container">
                   <div className="song-item">
                     <div className="spotify-embed">
-                      <iframe data-testid="embed-iframe" style={{ borderRadius: '12px' }} src="https://open.spotify.com/embed/playlist/0MbVxCvEG7DxqMB29vVFbl?utm_source=generator" width="100%" height="352" frameBorder="0" allowFullScreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                      <iframe data-testid="embed-iframe" style={{ borderRadius: '12px' }} src="https://open.spotify.com/embed/playlist/0MbVxCvEG7DxqMB29vVFbl?utm_source=generator" width="100%" height="152" frameBorder="0" allowFullScreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                     </div>
-                    <h3>Our Playlist</h3>
-                    <p>Add some notes or description about this playlist here...</p>
+                    <h3>The first playlist from you</h3>
+                    <p>I was so happy that i got a playlist from you. <br></br>To this day i still listen to the songs in the playlist.</p>
                   </div>
                 </div>
               </div>
@@ -507,10 +517,17 @@ function App() {
           <img src="/src/assets/endgame.png" alt="endgame" className="endgame-image" />
           <p className="final-page-quote">Thank you choosing me sayang, and remember... <br></br>Love you more than the most 💚</p>
         </section>
+          </>
+        )}
       </div>
-      <button className="scroll-to-top" onClick={() => scrollToPage(0)}>
-        <i className="fas fa-arrow-up"></i>
-      </button>
+      {isContentRevealed && (
+        <button className="scroll-to-top" onClick={() => {
+          setIsContentRevealed(false)
+          scrollToPage(0)
+        }}>
+          <i className="fas fa-arrow-up"></i>
+        </button>
+      )}
       {showSurprise && <Surprise onClose={closeSurprise} />}
       {showLetterConfirmation && (
         <LetterConfirmation

@@ -401,6 +401,34 @@ button:focus-visible {
   }
 }
 
+/* Cute continuous jump animation for text */
+@keyframes cuteJump {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+@keyframes cuteJumpDelay1 {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes cuteJumpDelay2 {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-18px);
+  }
+}
+
 /* apply bounce animation to first page elements with staggered delays */
 .page:first-of-type .arc-img-1.animate-bounce {
   animation: bounceIn 0.8s ease-out 0.1s both;
@@ -428,15 +456,28 @@ button:focus-visible {
 }
 
 .page:first-of-type h1.animate-bounce {
-  animation: bounceIn 0.8s ease-out 0.6s both;
+  animation: bounceIn 0.8s ease-out 0.6s both !important;
 }
 
 .page:first-of-type p.animate-bounce {
-  animation: bounceIn 0.8s ease-out 0.8s both;
+  animation: bounceIn 0.8s ease-out 0.8s both !important;
 }
 
 .page:first-of-type .start-btn.animate-bounce {
-  animation: bounceIn 0.8s ease-out 1s both;
+  animation: bounceIn 0.8s ease-out 1s both !important;
+}
+
+/* Continuous cute jump animation - starts after bounce animation completes */
+.page:first-of-type h1 {
+  animation: cuteJump 2s ease-in-out 1.4s infinite;
+}
+
+.page:first-of-type p {
+  animation: cuteJumpDelay1 2.2s ease-in-out 1.6s infinite;
+}
+
+.page:first-of-type .start-btn {
+  /* Static button - no continuous jumping */
 }
 
 /* Surprise popup modal styles */

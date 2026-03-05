@@ -238,6 +238,40 @@ function App() {
     return () => observer.disconnect()
   }, [])
 
+  // Add page enter animations when content is revealed
+  useEffect(() => {
+    if (isContentRevealed) {
+      setTimeout(() => {
+        const pages = document.querySelectorAll('.page')
+        console.log('Applying animations to', pages.length, 'pages')
+        pages.forEach((page, index) => {
+          if (index > 0) {
+            const animationNames = ['pageSlideInUp', 'pageSlideInLeft', 'pageSlideInRight', 'pageZoomIn']
+            const animationName = animationNames[(index - 1) % animationNames.length]
+            const delayMs = (index - 1) * 100
+            const el = page as HTMLElement
+            
+            // Apply animation after delay
+            setTimeout(() => {
+              console.log(`Animating page ${index} with ${animationName}`)
+              el.style.animation = `${animationName} 0.6s ease-out forwards`
+            }, delayMs)
+          }
+        })
+      }, 100)
+    } else {
+      // Cleanup when hiding content
+      const pages = document.querySelectorAll('.page')
+      pages.forEach((page, index) => {
+        if (index > 0) {
+          const el = page as HTMLElement
+          el.style.animation = 'none'
+          el.style.opacity = '0'
+        }
+      })
+    }
+  }, [isContentRevealed])
+
   const begin = () => {
     setIsContentRevealed(true)
     setShowSurprise(true)
